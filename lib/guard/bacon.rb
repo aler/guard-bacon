@@ -48,12 +48,7 @@ module Guard
 
       if File.exists?(path)
         @last_run_spec = path
-        pid = Kernel.fork do
-          puts "\nRunning spec: #{path}"
-          system "bundle exec bacon -o TestUnit #{path}"
-        end
-
-        Process.wait(pid)
+        Kernel.system("bundle exec bacon -q #{path}")
       else
         puts "spec not found: #{path}"
       end
